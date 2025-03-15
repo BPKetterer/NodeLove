@@ -1,0 +1,83 @@
+local SplitTextNode = require("NodeLove.GraphicNodes.SplitTextNode")
+
+---@class ColorTextNode : SplitTextNode
+---@field protected __index TextNode
+local ColorTextNode = setmetatable({}, SplitTextNode)
+ColorTextNode.__index = ColorTextNode
+
+-- ------------------------------ --
+-- PUBLIC ColorTextNode FUNCTIONS --
+-- ------------------------------ --
+
+---creates a new text node using an array for the text(see https://love2d.org/wiki/love.graphics.printf)
+---@param font table|nil: the choosen font or nil to use default (at current time)
+---@param limit number|nil the width limit in pixel (default: 10000)
+---@param align_mode string|nil the alginment of the text (default: "left")
+---@return ColorTextNode: the new text node
+function ColorTextNode:new(font, limit, align_mode)
+    local new = setmetatable(SplitTextNode:new(font, limit, align_mode), ColorTextNode)
+    ---@cast new ColorTextNode
+    new.text = {}
+    return new
+end
+
+---@generic self : ColorTextNode
+---@param self self
+---adds a section to the end with the given text
+---@param txt string|nil
+---@param color table|nil (default: white)
+---@return self
+function ColorTextNode:add_text(txt, color)
+    ---@cast self ColorTextNode
+    table.insert(self.text, color or {1, 1, 1})
+    table.insert(self.text, txt or "")
+    return self
+end
+
+---@generic self : ColorTextNode
+---@param self self
+---sets the text of a section
+---@param section number
+---@param txt string|nil
+---@return self
+function ColorTextNode:set_text(section, txt)
+    ---@cast self ColorTextNode
+    self.text[section * 2] = txt or ""
+    return self
+end
+
+---get the text of a section
+---@param section number
+---@return string
+function ColorTextNode:get_text(section)
+    ---@cast self ColorTextNode
+    return self.text[section * 2]
+end
+
+---@generic self : ColorTextNode
+---@param self self
+---sets the color of a section
+---@param section number
+---@param color table|nil (default: white)
+---@return self
+function ColorTextNode:set_color(section, color)
+    ---@cast self ColorTextNode
+    self.text[section * 2 - 1] = color or {1, 1, 1}
+    return self
+end
+
+---get the color of a section
+---@param section number
+---@return table
+function ColorTextNode:get_color(section)
+    ---@cast self ColorTextNode
+    return self.text[section * 2 - 1]
+end
+
+---gets the number of sections
+---@return number
+function ColorTextNode:get_section_count()
+    return #self.text / 2
+end
+
+return ColorTextNode
