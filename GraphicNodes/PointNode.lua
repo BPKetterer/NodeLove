@@ -9,7 +9,7 @@ PointNode.__index = PointNode
 -- PUBLIC PointNode FUNCTIONS --
 -- -------------------------- --
 
----creates a new point node (see https://love2d.org/wiki/love.graphics.point)
+---creates a new point node (see https://love2d.org/wiki/love.graphics.points)
 ---@return PointNode: the new point node
 function PointNode:new()
     local new = setmetatable(Node:new(), PointNode)
