@@ -45,6 +45,18 @@ end
 
 ---@generic self : SplitTextNode
 ---@param self self
+---removes a text section
+---@param section number|nil (default: last)
+---@return self
+function SplitTextNode:remove_text(section)
+    ---@cast self ColorTextNode
+    if not section then section = self:get_section_count() end
+    table.remove(self.text, section)
+    return self
+end
+
+---@generic self : SplitTextNode
+---@param self self
 ---sets the text of a section
 ---@param section number
 ---@param txt string|nil

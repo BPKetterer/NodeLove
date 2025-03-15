@@ -36,6 +36,19 @@ end
 
 ---@generic self : ColorTextNode
 ---@param self self
+---removes a text section
+---@param section number|nil (default last)
+---@return self
+function ColorTextNode:remove_text(section)
+    ---@cast self ColorTextNode
+    if not section then section = self:get_section_count() end
+    table.remove(self.text, section * 2 - 1)
+    table.remove(self.text, section * 2 - 1)
+    return self
+end
+
+---@generic self : ColorTextNode
+---@param self self
 ---sets the text of a section
 ---@param section number
 ---@param txt string|nil
