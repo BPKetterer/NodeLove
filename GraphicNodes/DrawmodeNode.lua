@@ -1,7 +1,7 @@
 local Node = require("NodeLove.CoreNodes.Node")
 
 ---@class DrawmodeNode : Node
----@field protected drawmode string
+---@field protected drawmode "fill"|"line"
 ---@field protected __index DrawmodeNode
 local DrawmodeNode = setmetatable({}, Node)
 DrawmodeNode.__index = DrawmodeNode
@@ -12,7 +12,7 @@ DrawmodeNode.__index = DrawmodeNode
 
 ---ABSTRACT
 ---creates a new node with a Drawmode
----@param drawmode string|any
+---@param drawmode "fill"|"line"|any
 ---@return DrawmodeNode: the new point node
 function DrawmodeNode:new(drawmode)
     local new = setmetatable(Node:new(), DrawmodeNode)
