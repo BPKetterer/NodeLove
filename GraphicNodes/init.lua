@@ -11,5 +11,6 @@ GraphicNodes.CircleNode = require("NodeLove.GraphicNodes.CircleNode")
 GraphicNodes.ArcNode = require("NodeLove.GraphicNodes.ArcNode")
 GraphicNodes.EllipseNode = require("NodeLove.GraphicNodes.EllipseNode")
 GraphicNodes.LineNode = require("NodeLove.GraphicNodes.LineNode")
+GraphicNodes.PolygonNode = require("NodeLove.GraphicNodes.PolygonNode")
 
 return GraphicNodes
