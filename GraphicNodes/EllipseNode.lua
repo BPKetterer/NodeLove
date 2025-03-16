@@ -1,6 +1,6 @@
 local Node = require("NodeLove.CoreNodes.Node")
-local SegmentExtension = require("NodeLove.GraphicNodes.SegmentExtension")
-local DrawmodeExtension = require("NodeLove.GraphicNodes.DrawmodeExtension")
+local SegmentExtension = require("NodeLove.GraphicNodes.Extensions.SegmentExtension")
+local DrawmodeExtension = require("NodeLove.GraphicNodes.Extensions.DrawmodeExtension")
 
 ---@class EllipseNode : Node, SegmentExtension, DrawmodeExtension
 ---@field protected radiusx number
