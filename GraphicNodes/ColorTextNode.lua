@@ -12,7 +12,7 @@ ColorTextNode.__index = ColorTextNode
 ---creates a new text node using an array for the text(see https://love2d.org/wiki/love.graphics.printf)
 ---@param font table|nil: the choosen font or nil to use default (at current time)
 ---@param limit number|nil the width limit in pixel (default: 10000)
----@param align_mode string|nil the alginment of the text (default: "left")
+---@param align_mode "left"|"right"|"center"|nil the alginment of the text (default: "left")
 ---@return ColorTextNode: the new text node
 function ColorTextNode:new(font, limit, align_mode)
     local new = setmetatable(SplitTextNode:new(font, limit, align_mode), ColorTextNode)

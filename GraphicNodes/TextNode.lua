@@ -4,7 +4,7 @@ local Node = require("NodeLove.CoreNodes.Node")
 ---@field protected text string
 ---@field protected font table
 ---@field protected limit number
----@field protected align_mode string
+---@field protected align_mode "left"|"right"|"center"
 ---@field protected __index TextNode
 local TextNode = setmetatable({}, Node)
 TextNode.__index = TextNode
@@ -16,7 +16,7 @@ TextNode.__index = TextNode
 ---creates a new text node (see https://love2d.org/wiki/love.graphics.printf)
 ---@param font table|nil: the choosen font or nil to use default (at current time)
 ---@param limit number|nil the width limit in pixel (default: 10000)
----@param align_mode string|nil the alginment of the text (default: "left")
+---@param align_mode "left"|"right"|"center"|nil the alginment of the text (default: "left")
 ---@return TextNode: the new text node
 function TextNode:new(font, limit, align_mode)
     local new = setmetatable(Node:new(), TextNode)
@@ -93,7 +93,7 @@ end
 ---@generic self : TextNode
 ---@param self self
 ---sets the align mode
----@param align_mode string|nil (default: "left")
+---@param align_mode "left"|"right"|"center"|nil (default: "left")
 ---@return self
 function TextNode:set_align_mode(align_mode)
     ---@cast self TextNode
@@ -102,7 +102,7 @@ function TextNode:set_align_mode(align_mode)
 end
 
 ---gets the align_mode
----@return string
+---@return "left"|"right"|"center"
 function TextNode:get_align_mode()
     return self.align_mode
 end
