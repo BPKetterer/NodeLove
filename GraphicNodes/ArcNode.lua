@@ -1,31 +1,30 @@
-local SegmentNode = require("NodeLove.GraphicNodes.SegmentNode")
+local CircleNode = require("NodeLove.GraphicNodes.CircleNode")
 
----@class ArcNode : SegmentNode
+---@class ArcNode : CircleNode
 ---@field protected arctype "pie"|"open"|"closed"
 ---@field protected radius number
 ---@field protected angle1 number
 ---@field protected angle2 number
 ---@field protected __index ArcNode
-local ArcNode = setmetatable({}, SegmentNode)
+local ArcNode = setmetatable({}, CircleNode)
 ArcNode.__index = ArcNode
 
 -- ------------------------ --
 -- PUBLIC ArcNode FUNCTIONS --
--- ------------------------- --
+-- ------------------------ --
 
 ---creates a new point node (see https://love2d.org/wiki/love.graphics.arc)
----@param drawmode "fill"|"line"|nil
----@param arctype "pie"|"open"|"closed"|nil
----@param radius number|nil
----@param angle1 number|nil
----@param angle2 number|nil
----@param segments number|nil
+---@param drawmode "fill"|"line"|nil (default: fill)
+---@param arctype "pie"|"open"|"closed"|nil (default: pie)
+---@param radius number|nil (default: 10)
+---@param angle1 number|nil (default: 0)
+---@param angle2 number|nil (default: 0)
+---@param segments number|nil (default: 10)
 ---@return ArcNode: the new arc node
 function ArcNode:new(drawmode, arctype, radius, angle1, angle2, segments)
-    local new = setmetatable(SegmentNode:new(drawmode, segments), ArcNode)
+    local new = setmetatable(CircleNode:new(drawmode, radius, segments), ArcNode)
     ---@cast new ArcNode
     new.arctype = arctype or "pie"
-    new.radius = radius or 10
     new.angle1 = angle1 or 0
     new.angle2 = angle2 or 0
     return new
@@ -45,22 +44,6 @@ end
 ---@return "pie"|"open"|"closed"
 function ArcNode:get_arctype()
     return self.arctype
-end
-
----@generic self : ArcNode
----@param self self
----sets the radius
----@param radius number|nil (default: 10)
----@return self
-function ArcNode:set_radius(radius)
-    self.radius = radius or 10
-    return self
-end
-
----gets the radius
----@return number
-function ArcNode:get_radius()
-    return self.radius
 end
 
 ---@generic self : ArcNode
