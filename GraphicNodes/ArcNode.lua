@@ -1,13 +1,12 @@
-local DrawmodeNode = require("NodeLove.GraphicNodes.DrawmodeNode")
+local SegmentNode = require("NodeLove.GraphicNodes.SegmentNode")
 
----@class ArcNode : DrawmodeNode
+---@class ArcNode : SegmentNode
 ---@field protected arctype "pie"|"open"|"closed"
 ---@field protected radius number
 ---@field protected angle1 number
 ---@field protected angle2 number
----@field protected segments number
 ---@field protected __index ArcNode
-local ArcNode = setmetatable({}, DrawmodeNode)
+local ArcNode = setmetatable({}, SegmentNode)
 ArcNode.__index = ArcNode
 
 -- ------------------------ --
@@ -23,13 +22,12 @@ ArcNode.__index = ArcNode
 ---@param segments number|nil
 ---@return ArcNode: the new arc node
 function ArcNode:new(drawmode, arctype, radius, angle1, angle2, segments)
-    local new = setmetatable(DrawmodeNode:new(drawmode), ArcNode)
+    local new = setmetatable(SegmentNode:new(drawmode, segments), ArcNode)
     ---@cast new ArcNode
     new.arctype = arctype or "pie"
     new.radius = radius or 10
     new.angle1 = angle1 or 0
     new.angle2 = angle2 or 0
-    new.segments = segments or 10
     return new
 end
 
@@ -95,22 +93,6 @@ end
 ---@return number
 function ArcNode:get_angle2()
     return self.angle2
-end
-
----@generic self : ArcNode
----@param self self
----sets the number of segments used for drawing the arc
----@param segments number|nil (default: 10)
----@return self
-function ArcNode:set_segments(segments)
-    self.segments = segments or 10
-    return self
-end
-
----gets the number of segments used for drawing the arc
----@return number
-function ArcNode:get_segments()
-    return self.segments
 end
 
 -- --------------------------- --
