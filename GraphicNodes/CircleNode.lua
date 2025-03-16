@@ -10,7 +10,7 @@ CircleNode.__index = CircleNode
 -- PUBLIC CircleNode FUNCTIONS --
 -- --------------------------- --
 
----creates a new point node (see https://love2d.org/wiki/love.graphics.arc)
+---creates a new point node (see https://love2d.org/wiki/love.graphics.circle)
 ---@param drawmode "fill"|"line"|nil (default: fill)
 ---@param radius number|nil (default: 10)
 ---@param segments number|nil (default: 10)
