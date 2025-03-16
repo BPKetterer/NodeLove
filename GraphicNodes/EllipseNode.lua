@@ -1,11 +1,15 @@
-local SegmentNode = require("NodeLove.GraphicNodes.SegmentNode")
+local Node = require("NodeLove.CoreNodes.Node")
+local SegmentExtension = require("NodeLove.GraphicNodes.SegmentExtension")
+local DrawmodeExtension = require("NodeLove.GraphicNodes.DrawmodeExtension")
 
----@class EllipseNode : SegmentNode
+---@class EllipseNode : Node, SegmentExtension, DrawmodeExtension
 ---@field protected radiusx number
 ---@field protected radiusy number
 ---@field protected __index EllipseNode
-local EllipseNode = setmetatable({}, SegmentNode)
+local EllipseNode = setmetatable({}, Node)
 EllipseNode.__index = EllipseNode
+SegmentExtension:extend_class(EllipseNode)
+DrawmodeExtension:extend_class(EllipseNode)
 
 -- ---------------------------- --
 -- PUBLIC EllipseNode FUNCTIONS --
@@ -18,8 +22,10 @@ EllipseNode.__index = EllipseNode
 ---@param segments number|nil (default: 10)
 ---@return EllipseNode: the new ellipse node
 function EllipseNode:new(drawmode, radiusx, radiusy, segments)
-    local new = setmetatable(SegmentNode:new(drawmode, segments), EllipseNode)
+    local new = setmetatable(Node:new(), EllipseNode)
     ---@cast new EllipseNode
+    new:set_segments(segments)
+    new:set_drawmode(drawmode)
     new.radiusx = radiusx or 10
     new.radiusy = radiusy or 10
     return new

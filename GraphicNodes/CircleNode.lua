@@ -1,10 +1,14 @@
-local SegmentNode = require("NodeLove.GraphicNodes.SegmentNode")
+local Node = require("NodeLove.CoreNodes.Node")
+local SegmentExtension = require("NodeLove.GraphicNodes.SegmentExtension")
+local DrawmodeExtension = require("NodeLove.GraphicNodes.DrawmodeExtension")
 
----@class CircleNode : SegmentNode
+---@class CircleNode : Node, SegmentExtension, DrawmodeExtension
 ---@field protected radius number
 ---@field protected __index CircleNode
-local CircleNode = setmetatable({}, SegmentNode)
+local CircleNode = setmetatable({}, Node)
 CircleNode.__index = CircleNode
+SegmentExtension:extend_class(CircleNode)
+DrawmodeExtension:extend_class(CircleNode)
 
 -- --------------------------- --
 -- PUBLIC CircleNode FUNCTIONS --
@@ -16,8 +20,10 @@ CircleNode.__index = CircleNode
 ---@param segments number|nil (default: 10)
 ---@return CircleNode: the new arc node
 function CircleNode:new(drawmode, radius, segments)
-    local new = setmetatable(SegmentNode:new(drawmode, segments), CircleNode)
+    local new = setmetatable(Node:new(), CircleNode)
     ---@cast new CircleNode
+    new:set_drawmode(drawmode)
+    new:set_segments(segments)
     new.radius = radius or 10
     return new
 end
