@@ -1,9 +1,8 @@
+require("NodeLove.Utils.ClassManager")
 local PointsNode = require("NodeLove.GraphicNodes.PointsNode")
 
 ---@class LineNode : PointsNode
----@field protected __index LineNode
-local LineNode = setmetatable({}, PointsNode)
-LineNode.__index = LineNode
+local LineNode = CreateClass({}, PointsNode)
 
 -- ------------------------- --
 -- PUBLIC LineNode FUNCTIONS --

@@ -1,12 +1,11 @@
+require("NodeLove.Utils.ClassManager")
 local Node = require("NodeLove.CoreNodes.Node")
 
 ---@type RootNode|nil
 NodeLoveRoot = nil
 
 --- @class RootNode : Node
---- @field protected __index RootNode
-local RootNode = setmetatable({}, Node)
-RootNode.__index = RootNode
+local RootNode = CreateClass({}, Node)
 
 -- ------------------------- --
 -- PUBLIC RootNode FUNCTIONS --

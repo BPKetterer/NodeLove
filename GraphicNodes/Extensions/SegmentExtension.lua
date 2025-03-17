@@ -1,18 +1,14 @@
+require("NodeLove.Utils.ClassManager")
+
 ---@class SegmentExtension
 ---@field protected segments number
----@field protected __index SegmentExtension
-local SegmentExtension = {}
-SegmentExtension.__index = SegmentExtension
+local SegmentExtension = CreateClass({
+    segments = 10
+})
 
 -- --------------------------------- --
 -- PUBLIC SegmentExtension FUNCTIONS --
 -- --------------------------------- --
-
----TODO
-function SegmentExtension:extend_class(class)
-    class.set_segments = SegmentExtension.set_segments
-    class.get_segments = SegmentExtension.get_segments
-end
 
 ---@generic self : SegmentExtension
 ---@param self self

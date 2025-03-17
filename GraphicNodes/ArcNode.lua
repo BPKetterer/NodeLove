@@ -1,3 +1,4 @@
+require("NodeLove.Utils.ClassManager")
 local CircleNode = require("NodeLove.GraphicNodes.CircleNode")
 
 ---@class ArcNode : CircleNode
@@ -5,28 +6,21 @@ local CircleNode = require("NodeLove.GraphicNodes.CircleNode")
 ---@field protected radius number
 ---@field protected angle1 number
 ---@field protected angle2 number
----@field protected __index ArcNode
-local ArcNode = setmetatable({}, CircleNode)
-ArcNode.__index = ArcNode
+local ArcNode = CreateClass({
+    arctype = "pie",
+    angle1 = 0,
+    angle2 = 0
+}, CircleNode)
 
 -- ------------------------ --
 -- PUBLIC ArcNode FUNCTIONS --
 -- ------------------------ --
 
 ---creates a new point node (see https://love2d.org/wiki/love.graphics.arc)
----@param drawmode "fill"|"line"|nil (default: fill)
----@param arctype "pie"|"open"|"closed"|nil (default: pie)
----@param radius number|nil (default: 10)
----@param angle1 number|nil (default: 0)
----@param angle2 number|nil (default: 0)
----@param segments number|nil (default: 10)
 ---@return ArcNode: the new arc node
-function ArcNode:new(drawmode, arctype, radius, angle1, angle2, segments)
-    local new = setmetatable(CircleNode:new(drawmode, radius, segments), ArcNode)
+function ArcNode:new()
+    local new = setmetatable(CircleNode:new(), ArcNode)
     ---@cast new ArcNode
-    new.arctype = arctype or "pie"
-    new.angle1 = angle1 or 0
-    new.angle2 = angle2 or 0
     return new
 end
 

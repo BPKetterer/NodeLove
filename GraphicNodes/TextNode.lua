@@ -1,3 +1,4 @@
+require("NodeLove.Utils.ClassManager")
 local Node = require("NodeLove.CoreNodes.Node")
 
 ---@class TextNode : Node
@@ -5,26 +6,22 @@ local Node = require("NodeLove.CoreNodes.Node")
 ---@field protected font table
 ---@field protected limit number
 ---@field protected align_mode "left"|"right"|"center"
----@field protected __index TextNode
-local TextNode = setmetatable({}, Node)
-TextNode.__index = TextNode
+local TextNode = CreateClass({
+    font = love.graphics.getFont(),
+    align_mode = "left",
+    limit = 10000
+}, Node)
 
 -- ------------------------- --
 -- PUBLIC TextNode FUNCTIONS --
 -- ------------------------- --
 
 ---creates a new text node (see https://love2d.org/wiki/love.graphics.printf)
----@param font table|nil: the choosen font or nil to use default (at current time)
----@param limit number|nil the width limit in pixel (default: 10000)
----@param align_mode "left"|"right"|"center"|nil the alginment of the text (default: "left")
 ---@return TextNode: the new text node
 function TextNode:new(font, limit, align_mode)
     local new = setmetatable(Node:new(), TextNode)
     ---@cast new TextNode
     new.text = ""
-    new.font = font or love.graphics.getFont()
-    new.align_mode = align_mode or "left"
-    new.limit = limit or 10000
     return new
 end
 

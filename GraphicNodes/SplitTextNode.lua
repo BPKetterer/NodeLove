@@ -1,22 +1,18 @@
+require("NodeLove.Utils.ClassManager")
 local TextNode = require("NodeLove.GraphicNodes.TextNode")
 
 ---@class SplitTextNode : TextNode
 ---@field protected text table
----@field protected __index TextNode
-local SplitTextNode = setmetatable({}, TextNode)
-SplitTextNode.__index = SplitTextNode
+local SplitTextNode = CreateClass({}, TextNode)
 
 -- ------------------------------ --
 -- PUBLIC SplitTextNode FUNCTIONS --
 -- ------------------------------ --
 
 ---creates a new text node using an array for the text(see https://love2d.org/wiki/love.graphics.printf)
----@param font table|nil: the choosen font or nil to use default (at current time)
----@param limit number|nil the width limit in pixel (default: 10000)
----@param align_mode "left"|"right"|"center"|nil the alginment of the text (default: "left")
 ---@return SplitTextNode: the new text node
-function SplitTextNode:new(font, limit, align_mode)
-    local new = setmetatable(TextNode:new(font, limit, align_mode), SplitTextNode)
+function SplitTextNode:new()
+    local new = setmetatable(TextNode:new(), SplitTextNode)
     ---@cast new SplitTextNode
     new.text = {}
     return new

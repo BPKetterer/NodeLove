@@ -1,18 +1,14 @@
+require("NodeLove.Utils.ClassManager")
+
 ---@class DrawmodeExtension
 ---@field protected drawmode "fill"|"line"
----@field protected __index DrawmodeExtension
-local DrawmodeExtension = {}
-DrawmodeExtension.__index = DrawmodeExtension
+local DrawmodeExtension = CreateClass({
+    drawmode = "fill"
+})
 
 -- ---------------------------------- --
 -- PUBLIC DrawmodeExtension FUNCTIONS --
 -- ---------------------------------- --
-
---TODO
-function DrawmodeExtension:extend_class(class)
-    class.set_drawmode = DrawmodeExtension.set_drawmode
-    class.get_drawmode = DrawmodeExtension.get_drawmode
-end
 
 ---@generic self : DrawmodeExtension
 ---@param self self

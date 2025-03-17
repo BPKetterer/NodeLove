@@ -1,30 +1,23 @@
+require("NodeLove.Utils.ClassManager")
 local Node = require("NodeLove.CoreNodes.Node")
 local SegmentExtension = require("NodeLove.GraphicNodes.Extensions.SegmentExtension")
 local DrawmodeExtension = require("NodeLove.GraphicNodes.Extensions.DrawmodeExtension")
 
 ---@class CircleNode : Node, SegmentExtension, DrawmodeExtension
 ---@field protected radius number
----@field protected __index CircleNode
-local CircleNode = setmetatable({}, Node)
-CircleNode.__index = CircleNode
-SegmentExtension:extend_class(CircleNode)
-DrawmodeExtension:extend_class(CircleNode)
+local CircleNode = CreateClass({
+    radius = 10
+}, Node, SegmentExtension, DrawmodeExtension)
 
 -- --------------------------- --
 -- PUBLIC CircleNode FUNCTIONS --
 -- --------------------------- --
 
 ---creates a new point node (see https://love2d.org/wiki/love.graphics.circle)
----@param drawmode "fill"|"line"|nil (default: fill)
----@param radius number|nil (default: 10)
----@param segments number|nil (default: 10)
 ---@return CircleNode: the new arc node
-function CircleNode:new(drawmode, radius, segments)
+function CircleNode:new()
     local new = setmetatable(Node:new(), CircleNode)
     ---@cast new CircleNode
-    new:set_drawmode(drawmode)
-    new:set_segments(segments)
-    new.radius = radius or 10
     return new
 end
 

@@ -1,37 +1,36 @@
+require("NodeLove.Utils.ClassManager")
 local Group = require("NodeLove.Utils.Group")
 local TransformationManager = require("NodeLove.Utils.TransformationManager")
 local Transformation = require("NodeLove.Utils.Transformation")
 
 ---@class Node
----@field private parent Node|nil the parent
----@field private parents_group_item GroupItem|nil the GroupItem of the parent referencing self
----@field private children Group the children
----@field private updates_paused boolean true, when updates are paused
----@field private drawing_paused boolean true, when drawing is paused
----@field private transformation Transformation|nil the transformation used for drawing TODO
+---@field private parent Node|nil
+---@field private parents_group_item GroupItem|nil
+---@field private children Group
+---@field private updates_paused boolean
+---@field private drawing_paused boolean
+---@field private transformation Transformation|nil
 ---@field protected update_top function|nil
 ---@field protected update_bottom function|nil
 ---@field protected draw_top function|nil
 ---@field protected draw_bottom function|nil
 ---@field protected event_handler_top function|nil
 ---@field protected event_handler_bottom function|nil
----@field protected __index Node
-local Node = {}
-Node.__index = Node
+local Node = CreateClass({
+    updates_paused = false,
+    drawing_paused = false
+})
 
 -- --------------------- --
 -- PUBLIC Node FUNCTIONS --
 -- --------------------- --
 
 ---creates a new node
----@return Node: the new node
+---@return Node
 function Node:new()
-    local new = setmetatable({
-        children = Group:new(),
-        updates_paused = false,
-        drawing_paused = false
+    return setmetatable({
+        children = Group:new()
     }, Node)
-    return new
 end
 
 ---@generic self : Node
@@ -179,7 +178,7 @@ end
 ---@protected
 ---updates self and all children
 ---@param dt number: the time since the last update
----@param update_data table: data passed through the tree to exchange data
+---@param update_data any: data passed through the tree to exchange data
 function Node:update(dt, update_data)
     if self.updates_paused then
         return
@@ -197,7 +196,7 @@ end
 
 ---@protected
 ---draws self and all children
----@param draw_data table: data passed through the tree to exchange data
+---@param draw_data any: data passed through the tree to exchange data
 function Node:draw(draw_data)
     if self.drawing_paused then
         return

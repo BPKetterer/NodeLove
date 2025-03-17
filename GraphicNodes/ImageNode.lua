@@ -1,35 +1,28 @@
+require("NodeLove.Utils.ClassManager")
 local Node = require("NodeLove.CoreNodes.Node")
 
 ---@class ImageNode : Node
 ---@field protected image table|nil
----@field protected centered boolean
----@field protected __index ImageNode
-local ImageNode = setmetatable({}, Node)
-ImageNode.__index = ImageNode
+local ImageNode = CreateClass({}, Node)
 
 -- -------------------------- --
 -- PUBLIC ImageNode FUNCTIONS --
 -- -------------------------- --
 
 ---creates a new image node (see https://love2d.org/wiki/love.graphics.newImage)
----@param filename string|nil: the file name (if no name is given no image is drawn)
----@param settings table|nil: the settings for the image
----@param centered boolean|nil: when true the an intenal offset centeres the image (default: true)
 ---@return ImageNode: the new image node
-function ImageNode:new(filename, settings, centered)
-    return self:new_from_image(love.graphics.newImage(filename, settings), centered)
-end
-
----create a new image node based on an existing love2d image
----@param image any: the love2d image
----@param centered boolean|nil: when true the an intenal offset centeres the image (default: true)
----@return ImageNode: the new image node
-function ImageNode:new_from_image(image, centered)
+function ImageNode:new()
     local new = setmetatable(Node:new(), ImageNode)
     ---@cast new ImageNode
-    new.image = image
-    new.centered = centered ~= false
     return new
+end
+
+---loads an image
+---@param filename string: the file name
+---@param settings table|nil: the settings for the image
+function ImageNode:load_image(filename, settings)
+    self.image = love.graphics.newImage(filename, settings)
+    return self
 end
 
 ---gets the love2d image of the node
@@ -40,6 +33,7 @@ end
 ---sets the love2d image
 function ImageNode:set_image(image)
     self.image = image
+    return self
 end
 
 -- ----------------------------- --
@@ -49,11 +43,7 @@ end
 ---@protected
 ---draws the image
 function ImageNode:draw_bottom()
-    if self.centered then
-        love.graphics.draw(self.image, -self.image:getWidth()/2, -self.image:getHeight()/2)
-    else
-        love.graphics.draw(self.image, 0, 0)
-    end
+    love.graphics.draw(self.image, 0, 0)
 end
 
 return ImageNode

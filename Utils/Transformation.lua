@@ -1,3 +1,5 @@
+require("NodeLove.Utils.ClassManager")
+
 ---@class Transformation
 ---@field protected transformation table
 ---@field protected outdated boolean
@@ -10,26 +12,36 @@
 ---@field protected oy number
 ---@field protected kx number
 ---@field protected ky number
----@field protected __index Transformation
-local Transformation = {}
-Transformation.__index = Transformation
+local Transformation = CreateClass({
+    outdated = true,
+    x = 0,
+    y = 0,
+    angle = 0,
+    sx = 1,
+    sy = 1,
+    ox = 0,
+    oy = 0,
+    kx = 0,
+    ky = 0
+})
 
 ---creates a new Transformation
 ---@return Transformation
 function Transformation:new()
     local new = setmetatable({}, Transformation)
-    new:reset()
+    new.transformation = love.math.newTransform()
     return new
 end
 
 ---clones a transformation
 ---@return Transformation
 function Transformation:clone()
-    local new = setmetatable({}, Transformation)
+    local new = Transformation:new()
     for k, v in pairs(self) do
-        new[k] = v
+        if k ~= "transformation" then
+            new[k] = v
+        end
     end
-    new.transformation = love.math.newTransform()
     new.outdated = true
     return new
 end
@@ -37,7 +49,6 @@ end
 ---resets the transformation
 ---@return Transformation
 function Transformation:reset()
-    self.transformation = love.math.newTransform()
     self.outdated = true
     self.x = 0
     self.y = 0

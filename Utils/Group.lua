@@ -1,10 +1,12 @@
+require("NodeLove.Utils.ClassManager")
+
 ---@class Group
 ---@field package next Group|GroupItem
 ---@field package prev Group|GroupItem
 ---@field package item_count number
----@field protected __index any
-local Group = {}
-Group.__index = Group
+local Group = CreateClass({
+    item_count = 0
+})
 
 ---@class GroupItem
 ---@field package next Group|GroupItem
@@ -13,9 +15,9 @@ Group.__index = Group
 ---@field package element any
 ---@field package dead true|nil
 ---@field package group Group
----@field protected __index any
-local GroupItem = {}
-GroupItem.__index = GroupItem
+local GroupItem = CreateClass({
+    dead = false
+})
 
 -- ---------------------- --
 -- PUBLIC Group FUNCTIONS --
@@ -24,9 +26,7 @@ GroupItem.__index = GroupItem
 ---creates a new group
 ---@return Group
 function Group:new()
-    local new = setmetatable({
-        item_count = 0
-    }, Group)
+    local new = setmetatable({}, Group)
     new.next = new
     new.prev = new
     return new
@@ -113,6 +113,7 @@ end
 ---@return any element, number priority, GroupItem item
 function Group:get_random()
     local position = love.math.random(self.item_count)
+    ---@type Group|GroupItem
     local item = self
     while position > 0 do
         position = position - 1

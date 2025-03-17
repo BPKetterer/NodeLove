@@ -1,3 +1,4 @@
+require("NodeLove.Utils.ClassManager")
 local Node = require("NodeLove.CoreNodes.Node")
 local SegmentExtension = require("NodeLove.GraphicNodes.Extensions.SegmentExtension")
 local DrawmodeExtension = require("NodeLove.GraphicNodes.Extensions.DrawmodeExtension")
@@ -5,29 +6,20 @@ local DrawmodeExtension = require("NodeLove.GraphicNodes.Extensions.DrawmodeExte
 ---@class EllipseNode : Node, SegmentExtension, DrawmodeExtension
 ---@field protected radiusx number
 ---@field protected radiusy number
----@field protected __index EllipseNode
-local EllipseNode = setmetatable({}, Node)
-EllipseNode.__index = EllipseNode
-SegmentExtension:extend_class(EllipseNode)
-DrawmodeExtension:extend_class(EllipseNode)
+local EllipseNode = CreateClass({
+    radiusx = 10,
+    rediusy = 10
+}, Node, SegmentExtension, DrawmodeExtension)
 
 -- ---------------------------- --
 -- PUBLIC EllipseNode FUNCTIONS --
 -- ---------------------------- --
 
 ---creates a new ellipse node (see https://love2d.org/wiki/love.graphics.ellipse)
----@param drawmode "fill"|"line"|nil (default: fill)
----@param radiusx number|nil (default: 10)
----@param radiusy number|nil (default: 10)
----@param segments number|nil (default: 10)
 ---@return EllipseNode: the new ellipse node
-function EllipseNode:new(drawmode, radiusx, radiusy, segments)
+function EllipseNode:new()
     local new = setmetatable(Node:new(), EllipseNode)
     ---@cast new EllipseNode
-    new:set_segments(segments)
-    new:set_drawmode(drawmode)
-    new.radiusx = radiusx or 10
-    new.radiusy = radiusy or 10
     return new
 end
 
