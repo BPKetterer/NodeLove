@@ -3,7 +3,6 @@ local CircleNode = require("NodeLove.GraphicNodes.CircleNode")
 
 ---@class ArcNode : CircleNode
 ---@field protected arctype "pie"|"open"|"closed"
----@field protected radius number
 ---@field protected angle1 number
 ---@field protected angle2 number
 local ArcNode = CreateClass({
@@ -27,10 +26,10 @@ end
 ---@generic self : ArcNode
 ---@param self self
 ---sets the arctype
----@param arctype "pie"|"open"|"closed"|nil (default: "pie")
+---@param arctype "pie"|"open"|"closed"
 ---@return self
 function ArcNode:set_arctype(arctype)
-    self.arctype = arctype or "pie"
+    self.arctype = arctype
     return self
 end
 
@@ -43,10 +42,10 @@ end
 ---@generic self : ArcNode
 ---@param self self
 ---sets the angle at which the arc begins
----@param angle1 number|nil (default: 0)
+---@param angle1 number
 ---@return self
 function ArcNode:set_angle1(angle1)
-    self.angle1 = angle1 or 0
+    self.angle1 = angle1
     return self
 end
 
@@ -59,10 +58,10 @@ end
 ---@generic self : ArcNode
 ---@param self self
 ---sets the angle at which the arc terminates
----@param angle2 number|nil (default: 0)
+---@param angle2 number
 ---@return self
 function ArcNode:set_angle2(angle2)
-    self.angle2 = angle2 or 0
+    self.angle2 = angle2
     return self
 end
 

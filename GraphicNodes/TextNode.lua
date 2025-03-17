@@ -38,7 +38,7 @@ end
 ---@generic self : TextNode
 ---@param self self
 ---sets the text
----@param txt string|nil
+---@param txt string|nil (default: "")
 ---@return self
 function TextNode:set_text(txt)
     ---@cast self TextNode
@@ -107,19 +107,16 @@ end
 ---@generic self : TextNode
 ---@param self self
 ---sets the font
----@param font table|nil when nil use current default
+---@param font table
 ---@return self
 function TextNode:set_font(font)
     ---@cast self TextNode
-    if not font then
-        font = love.graphics.getFont()
-    end
     self.font = font
     return self
 end
 
 ---gets the font
----@return table|nil
+---@return table
 function TextNode:get_font()
     return self.font
 end

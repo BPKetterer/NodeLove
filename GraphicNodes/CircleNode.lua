@@ -24,10 +24,10 @@ end
 ---@generic self : CircleNode
 ---@param self self
 ---sets the radius
----@param radius number|nil (default: 10)
+---@param radius number
 ---@return self
 function CircleNode:set_radius(radius)
-    self.radius = radius or 10
+    self.radius = radius
     return self
 end
 

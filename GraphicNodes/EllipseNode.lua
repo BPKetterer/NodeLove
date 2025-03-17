@@ -26,20 +26,20 @@ end
 ---@generic self : EllipseNode
 ---@param self self
 ---sets the x radius
----@param radiusx number|nil (default: 10)
+---@param radiusx number
 ---@return self
 function EllipseNode:set_radiusx(radiusx)
-    self.radiusx = radiusx or 10
+    self.radiusx = radiusx
     return self
 end
 
 ---@generic self : EllipseNode
 ---@param self self
 ---sets the y radius
----@param radiusy number|nil (default: 10)
+---@param radiusy number
 ---@return self
 function EllipseNode:set_radiusy(radiusy)
-    self.radiusy = radiusy or 10
+    self.radiusy = radiusy
     return self
 end
 

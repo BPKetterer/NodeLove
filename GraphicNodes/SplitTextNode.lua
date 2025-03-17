@@ -31,7 +31,7 @@ end
 ---@generic self : SplitTextNode
 ---@param self self
 ---adds a section to the end with the given text
----@param txt string|nil
+---@param txt string|nil (default: "")
 ---@return self
 function SplitTextNode:add_text(txt)
     ---@cast self SplitTextNode
@@ -55,7 +55,7 @@ end
 ---@param self self
 ---sets the text of a section
 ---@param section number
----@param txt string|nil
+---@param txt string|nil (default: "")
 ---@return self
 function SplitTextNode:set_text(section, txt)
     ---@cast self SplitTextNode

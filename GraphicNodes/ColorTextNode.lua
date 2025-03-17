@@ -20,7 +20,7 @@ end
 ---@generic self : ColorTextNode
 ---@param self self
 ---adds a section to the end with the given text
----@param txt string|nil
+---@param txt string|nil (default: "")
 ---@param color table|nil (default: white)
 ---@return self
 function ColorTextNode:add_text(txt, color)
@@ -47,7 +47,7 @@ end
 ---@param self self
 ---sets the text of a section
 ---@param section number
----@param txt string|nil
+---@param txt string|nil (default: "")
 ---@return self
 function ColorTextNode:set_text(section, txt)
     ---@cast self ColorTextNode
