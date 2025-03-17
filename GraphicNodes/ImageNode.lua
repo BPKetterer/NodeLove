@@ -36,6 +36,18 @@ function ImageNode:set_image(image)
     return self
 end
 
+---gets the width of the image before transformations
+---@return number
+function ImageNode:get_width()
+    return self.image:getWidth()
+end
+
+---gets the height of the image before transformations
+---@return number
+function ImageNode:get_height()
+    return self.image.get_width()
+end
+
 -- ----------------------------- --
 -- PROTECTED ImageNode FUNCTIONS --
 -- ----------------------------- --
