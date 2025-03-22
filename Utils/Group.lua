@@ -53,10 +53,10 @@ function Group:add(element, priority)
     return reference
 end
 
----executes a callback for all elements in descending order of priority
+---executes a callback for all elements in ascending order of priority
 ---@param func fun(element:any, priority:number, item:GroupItem) the callback
 ---@param use_copy boolean|nil when true uses a copy
-function Group:for_all(func, use_copy)
+function Group:for_all_asc(func, use_copy)
     local item = self.prev
     if not use_copy then
         while item ~= self do
@@ -81,10 +81,10 @@ function Group:for_all(func, use_copy)
     end
 end
 
----executes a callback for all elements in ascending order of priority
+---executes a callback for all elements in descending order of priority
 ---@param func fun(element:any, priority:number, item:GroupItem) the callback
 ---@param use_copy boolean|nil when true uses a copy
-function Group:for_all_asc(func, use_copy)
+function Group:for_all_desc(func, use_copy)
     local item = self.next
     if not use_copy then
         while item ~= self do
