@@ -21,6 +21,8 @@ local Node = CreateClass({
     drawing_paused = false
 })
 
+---@alias event_type "keypressed"|"keyreleased"|"textinput"|"mousepressed"|"mousereleased"|"mousemoved"|"wheelmoved"|"touchpressed"|"touchreleased"|"touchmoved"|"gamepadpressed"|"gamepadreleased"|"gamepadaxis"|"joystickadded"|"joystickremoved"|"joystickpressed"|"joystickreleased"|"joystickaxis"|"joystickhat"|"resize"|"visible"|"focus"|"mousefocus"|"quit"|"errorhandler"|"threaderror"|"lowmemory"|"filedropped"|"directorydropped"
+
 -- --------------------- --
 -- PUBLIC Node FUNCTIONS --
 -- --------------------- --
@@ -171,6 +173,16 @@ function Node:get_drawing_paused()
     return self.drawing_paused
 end
 
+function Node:transform_position(x, y)
+    if self.parent then
+        x, y = self.parent:transform_position(x, y)
+    end
+    if self.transformation then
+        x, y = self.transformation:get_love_transformation():inverse():transformPoint(x, y)
+    end
+    return x, y
+end
+
 -- ------------------------ --
 -- PROTECTED Node FUNCTIONS --
 -- ------------------------ --
@@ -208,7 +220,7 @@ function Node:draw(draw_data)
     if self.draw_top then
         self:draw_top(draw_data)
     end
-    self.children:for_all(function(child)
+    self.children:for_all_desc(function(child)
         child:draw(draw_data)
     end, false)
     if self.draw_bottom then
@@ -221,17 +233,28 @@ end
 
 ---@protected
 ---handles an event
----@param event_data any
-function Node:event(event_data)
+---@param type event_type
+---@param event_data table
+---@return boolean: event has been handled
+function Node:event(type, event_data)
+    local result = false
     if self.event_handler_top then
-        self.event_handler_top(event_data)
+        if self:event_handler_top(type, event_data) then
+            return true
+        end
     end
     self.children:for_all_asc(function(child)
-        child:event(event_data)
+        if not result then --TODO optimise
+            result = child:event(type, event_data)
+        end
     end, true)
-    if self.event_handler_bottom then
-        self.event_handler_bottom(event_data)
+    if result then
+        return true
     end
+    if self.event_handler_bottom then
+        return self:event_handler_bottom(type, event_data)
+    end
+    return false
 end
 
 return Node
